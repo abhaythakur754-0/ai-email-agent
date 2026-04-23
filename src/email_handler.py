@@ -22,11 +22,14 @@ class EmailHandler:
         """Initialize email handler with credentials from environment."""
         self.email_address = os.getenv('EMAIL_ADDRESS')
         self.email_password = os.getenv('EMAIL_PASSWORD')
-        self.smtp_server = os.getenv('EMAIL_SMTP', 'smtp.gmail.com')
-        self.smtp_port = int(os.getenv('EMAIL_SMTP_PORT', '587'))
-        self.imap_server = os.getenv('EMAIL_IMAP', 'imap.gmail.com')
+        self.smtp_server = os.getenv('EMAIL_SMTP') or 'smtp.gmail.com'
         
-        self.sender_name = os.getenv('SENDER_NAME', 'PARWA Team')
+        # Handle empty string for port
+        smtp_port_env = os.getenv('EMAIL_SMTP_PORT')
+        self.smtp_port = int(smtp_port_env) if smtp_port_env else 587
+        
+        self.imap_server = os.getenv('EMAIL_IMAP') or 'imap.gmail.com'
+        self.sender_name = os.getenv('SENDER_NAME') or 'PARWA Team'
     
     def send_email(
         self,
