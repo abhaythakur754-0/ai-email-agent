@@ -18,15 +18,13 @@ jobs:
         with:
           fetch-depth: 0
       
-      - name: Set up Python
-        uses: actions/setup-python@v5
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
         with:
-          python-version: '3.11'
+          node-version: '20'
       
       - name: Install dependencies
-        run: |
-          python -m pip install --upgrade pip
-          pip install -r requirements.txt
+        run: npm install
       
       - name: Run email agent
         env:
@@ -34,13 +32,8 @@ jobs:
           EMAIL_PASSWORD: ${{ secrets.EMAIL_PASSWORD }}
           EMAIL_SMTP: ${{ secrets.EMAIL_SMTP }}
           EMAIL_IMAP: ${{ secrets.EMAIL_IMAP }}
-          LLM_API_KEY: ${{ secrets.LLM_API_KEY }}
-          LLM_API_URL: ${{ secrets.LLM_API_URL }}
-          LLM_MODEL: ${{ secrets.LLM_MODEL }}
           SENDER_NAME: ${{ secrets.SENDER_NAME }}
-        run: |
-          cd src
-          python main.py
+        run: npm start
       
       - name: Commit changes
         run: |
@@ -52,17 +45,16 @@ jobs:
       
       - name: Clean up old data (2-week rotation)
         run: |
-          python -c "
-          import json
-          from datetime import datetime, timedelta
+          node -e "
+          const fs = require('fs');
+          const path = require('path');
           
-          # Clean up emails older than 14 days
-          with open('data/emails.json', 'r') as f:
-              data = json.load(f)
+          const emailsFile = path.join('data', 'emails.json');
+          const cutoff = new Date(Date.now() - 14 * 24 * 60 * 60 * 1000).toISOString();
           
-          cutoff = (datetime.now() - timedelta(days=14)).isoformat()
-          data['emails'] = [e for e in data.get('emails', []) if e.get('sent_at', '') > cutoff]
-          
-          with open('data/emails.json', 'w') as f:
-              json.dump(data, f, indent=2)
+          try {
+            const data = JSON.parse(fs.readFileSync(emailsFile, 'utf8'));
+            data.emails = (data.emails || []).filter(e => e.sent_at > cutoff);
+            fs.writeFileSync(emailsFile, JSON.stringify(data, null, 2));
+          } catch {}
           "

@@ -1,0 +1,19 @@
+{
+  "name": "ai-email-agent",
+  "version": "1.0.0",
+  "description": "AI Email Agent for marketing outreach with PARWA",
+  "main": "src/main.js",
+  "scripts": {
+    "start": "node src/main.js",
+    "test": "node src/main.js"
+  },
+  "dependencies": {
+    "nodemailer": "^6.9.8",
+    "imapflow": "^1.0.162",
+    "mailparser": "^3.6.6",
+    "z-ai-web-dev-sdk": "latest"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
