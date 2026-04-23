@@ -1,0 +1,15 @@
+{
+  "emails": [],
+  "_schema": {
+    "lead_id": "reference to lead",
+    "to": "recipient email",
+    "from": "sender email (for received)",
+    "subject": "email subject",
+    "body": "email body",
+    "type": "fear | solution | follow_up | trust | answer | received",
+    "sent_at": "ISO timestamp when sent",
+    "date": "ISO timestamp (for received emails)",
+    "message_id": "email message ID for threading",
+    "replied": "boolean - has this email been replied to"
+  }
+}

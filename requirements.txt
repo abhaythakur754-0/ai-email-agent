@@ -1,0 +1,19 @@
+# Email handling
+imapclient>=2.3.0
+email-validator>=2.0.0
+
+# HTTP requests
+requests>=2.31.0
+aiohttp>=3.9.0
+
+# Date/time handling
+python-dateutil>=2.8.0
+
+# JSON handling
+orjson>=3.9.0
+
+# Environment variables
+python-dotenv>=1.0.0
+
+# Template rendering
+jinja2>=3.1.0

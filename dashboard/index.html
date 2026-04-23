@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Email Agent Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-left">
+                <h1 class="logo">AI Email Agent</h1>
+                <span class="badge">FREE</span>
+            </div>
+            <div class="header-right">
+                <button class="btn btn-secondary" onclick="showSettings()">Settings</button>
+                <button class="btn btn-primary" onclick="showAddProspect()">+ Add Prospect</button>
+            </div>
+        </header>
+
+        <!-- Stats Row -->
+        <div class="stats-row">
+            <div class="stat-card">
+                <div class="stat-label">Emails Sent</div>
+                <div class="stat-value" id="stat-sent">0</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Replies</div>
+                <div class="stat-value" id="stat-replies">0</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Leads</div>
+                <div class="stat-value" id="stat-leads">0</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Conversations</div>
+                <div class="stat-value" id="stat-conversations">0</div>
+            </div>
+        </div>
+
+        <!-- Follow-Up Alerts -->
+        <div class="alerts-section" id="alerts-section" style="display: none;">
+            <h2 class="section-title">
+                <span class="alert-icon">!</span>
+                Follow-Up Needed - No Reply After 36 Hours
+            </h2>
+            <div class="alerts-list" id="alerts-list">
+                <!-- Populated by JavaScript -->
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Leads Table -->
+            <div class="leads-section">
+                <div class="section-header">
+                    <h2 class="section-title">Recent Leads</h2>
+                    <button class="btn btn-text" onclick="showAllLeads()">View All</button>
+                </div>
+                <div class="table-container">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Company</th>
+                                <th>Status</th>
+                                <th>Added</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="leads-table">
+                            <!-- Populated by JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Prospect Modal -->
+    <div class="modal" id="add-prospect-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Add New Prospect</h3>
+                <button class="modal-close" onclick="closeModal('add-prospect-modal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="add-prospect-form">
+                    <div class="form-group">
+                        <label>Email Address *</label>
+                        <input type="email" name="email" required placeholder="john@company.com">
+                    </div>
+                    <div class="form-group">
+                        <label>Company Name *</label>
+                        <input type="text" name="company" required placeholder="TechCorp Inc">
+                    </div>
+                    <div class="form-group">
+                        <label>Contact Name *</label>
+                        <input type="text" name="name" required placeholder="John Smith">
+                    </div>
+                    <div class="form-group">
+                        <label>Additional Notes</label>
+                        <textarea name="notes" placeholder="Found on LinkedIn. Hiring support roles. Uses Zendesk."></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>Source</label>
+                        <input type="text" name="source" placeholder="LinkedIn">
+                    </div>
+                    <div class="form-group">
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="send_immediately">
+                            Send Fear email immediately
+                        </label>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeModal('add-prospect-modal')">Cancel</button>
+                <button class="btn btn-primary" onclick="addProspect()">Add Prospect</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Settings Modal -->
+    <div class="modal" id="settings-modal">
+        <div class="modal-content modal-large">
+            <div class="modal-header">
+                <h3>Settings</h3>
+                <button class="modal-close" onclick="closeModal('settings-modal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="settings-tabs">
+                    <button class="tab-btn active" onclick="showTab('templates')">Email Templates</button>
+                    <button class="tab-btn" onclick="showTab('product')">Product Info</button>
+                    <button class="tab-btn" onclick="showTab('followup')">Follow-Up Settings</button>
+                </div>
+                
+                <!-- Templates Tab -->
+                <div class="tab-content active" id="tab-templates">
+                    <div class="form-group">
+                        <label>Fear Email Subject</label>
+                        <input type="text" id="fear-subject" placeholder="Hey {name}, your {company} is losing money...">
+                    </div>
+                    <div class="form-group">
+                        <label>Fear Email Body</label>
+                        <textarea id="fear-body" rows="10" placeholder="Hi {name},..."></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>Solution Email Subject</label>
+                        <input type="text" id="solution-subject" placeholder="Re: Hey {name}...">
+                    </div>
+                    <div class="form-group">
+                        <label>Solution Email Body</label>
+                        <textarea id="solution-body" rows="10" placeholder="Hey {name},..."></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>Follow-Up Email Subject</label>
+                        <input type="text" id="followup-subject" placeholder="{name}, {company} - I messaged you before...">
+                    </div>
+                    <div class="form-group">
+                        <label>Follow-Up Email Body</label>
+                        <textarea id="followup-body" rows="10" placeholder="Hi {name},..."></textarea>
+                    </div>
+                </div>
+                
+                <!-- Product Info Tab -->
+                <div class="tab-content" id="tab-product">
+                    <div class="form-group">
+                        <label>Product Information (for AI to answer questions)</label>
+                        <textarea id="product-info" rows="15" placeholder="Describe your product..."></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>Website URL</label>
+                        <input type="url" id="website-url" placeholder="https://your-website.com">
+                    </div>
+                    <div class="form-group">
+                        <label>Calculator URL</label>
+                        <input type="url" id="calculator-url" placeholder="https://your-website.com/calculator">
+                    </div>
+                </div>
+                
+                <!-- Follow-Up Settings Tab -->
+                <div class="tab-content" id="tab-followup">
+                    <div class="form-group">
+                        <label>Wait time before follow-up alert (hours)</label>
+                        <select id="followup-hours">
+                            <option value="24">24 hours</option>
+                            <option value="36" selected>36 hours</option>
+                            <option value="48">48 hours</option>
+                            <option value="72">72 hours</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Max follow-ups per person</label>
+                        <select id="max-followups">
+                            <option value="1" selected>1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="duplicate-protection" checked>
+                            Enable duplicate protection
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeModal('settings-modal')">Cancel</button>
+                <button class="btn btn-primary" onclick="saveSettings()">Save Settings</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Conversation Modal -->
+    <div class="modal" id="conversation-modal">
+        <div class="modal-content modal-large">
+            <div class="modal-header">
+                <h3 id="conversation-title">Conversation</h3>
+                <button class="modal-close" onclick="closeModal('conversation-modal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="conversation-thread" id="conversation-thread">
+                    <!-- Populated by JavaScript -->
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeModal('conversation-modal')">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,21 @@
+{
+  "follow_up_hours": 36,
+  "max_follow_ups": 1,
+  "enable_duplicate_protection": true,
+  
+  "product_info": "PARWA - Complete AI Workforce System for Customer Care\n\nWhat it is: PARWA is a complete AI workforce system that behaves like an AI employee - it learns your business, handles customer support, and gets smarter over time through Agent Lightning training.\n\nKey Features:\n- Custom GSD State Engine - No hallucinations, 98% cost savings\n- Agent Lightning - Learns from mistakes, gets smarter weekly\n- Jarvis Control System - Full human control, 100% transparent\n- Smart Router - Uses Light/Medium/Heavy LLMs based on task\n- Handles 60-90% of support workload automatically\n- Channels: Email, Chat, Social, SMS, Phone, Video\n- Integrates with: Shopify, Zendesk, Intercom, Stripe, etc.\n\nThree Variants (Pricing):\n- Mini PARWA - $1,000/mo - Trainee, handles FAQs & tracking\n- PARWA (Junior) - $2,500/mo - Recommends decisions, 300 tix/day\n- PARWA High - $4,000/mo - Senior agent, VIP handling, 500+ tix\n\nWhat Makes PARWA Different:\n- AI asks for approval on refunds (never auto-executes)\n- Learns YOUR specific policies in weeks 1-6\n- Shows confidence scores + reasoning for every decision\n- Can be paused, promoted, or demoted anytime\n\nTarget Customers:\n- E-commerce companies with 50+ support tickets/day\n- SaaS companies overwhelmed with support requests\n- Any business spending too much on customer support\n\nCommon Objections & Responses:\n- 'Too expensive' → Costs less than 1 support agent, works 24/7\n- 'We have Zendesk' → PARWA integrates with it, handles the work\n- 'AI sounds scary' → It asks approval before any action, safe\n- 'How is this different?' → It learns YOUR business, not generic\n- 'We tried AI before' → PARWA is an employee, not a chatbot\n\nKey Selling Points:\n- 60-70% workload elimination in Day 1\n- Setup in 10 minutes, first resolution in 24 hours\n- No 'surprise bills' - transparent pricing",
+  
+  "website_url": "https://your-parwa-website.com",
+  "calculator_url": "https://your-parwa-website.com/calculator",
+  "sender_name": "PARWA Team",
+  
+  "_schema": {
+    "follow_up_hours": "hours to wait before follow-up alert (default: 36)",
+    "max_follow_ups": "max follow-ups per lead (default: 1)",
+    "enable_duplicate_protection": "prevent sending to same person twice",
+    "product_info": "full product description for AI to use in responses",
+    "website_url": "your main website URL",
+    "calculator_url": "your ROI calculator URL",
+    "sender_name": "name shown in email From field"
+  }
+}

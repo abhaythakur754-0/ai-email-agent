@@ -1,0 +1,22 @@
+{
+  "conversations": [],
+  "_schema": {
+    "lead_id": "reference to lead",
+    "messages": [
+      {
+        "direction": "sent | received | note",
+        "from": "sender email (for received)",
+        "to": "recipient email (for sent)",
+        "body": "message body",
+        "type": "fear | solution | follow_up | trust | answer | received",
+        "date": "ISO timestamp",
+        "analysis": {
+          "sentiment": "positive | negative | skeptical | neutral",
+          "tone": "casual | formal | neutral",
+          "intent": "interested | not_interested | question | complaint | demo_request"
+        }
+      }
+    ],
+    "created_at": "ISO timestamp"
+  }
+}

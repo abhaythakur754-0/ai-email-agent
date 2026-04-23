@@ -1,0 +1,35 @@
+{
+  "fear_email": {
+    "subject": "Hey {name}, your {company} is losing money every month...",
+    "body": "Hi {name},\n\nI've been researching {company} and noticed something that might be costing you serious money.\n\n[INSERT YOUR FEAR CONTENT HERE]\n\nThe reason I'm reaching out is because your company looked like a perfect fit based on what I found.\n\nWant to know what I discovered?\n\n[Your name]\nCEO, PARWA",
+    "description": "Fear email - shows the problem/loss. YOU customize this content."
+  },
+  
+  "solution_email": {
+    "subject": "Re: Hey {name}, your {company} is losing money every month...",
+    "body": "Hey {name},\n\nGreat to hear back from you!\n\n[INSERT YOUR SOLUTION CONTENT HERE]\n\nHere's how PARWA solves this:\n- Handles 60-90% of your support tickets automatically\n- Learns your business in weeks 1-6\n- Integrates with your existing tools (Zendesk, Intercom, etc.)\n\nYou can see exactly how much you'd save here:\n[Your calculator URL]\n\nWant me to walk you through it?\n\n[Your name]",
+    "description": "Solution email - sent after positive reply. YOU customize this content."
+  },
+  
+  "follow_up_email": {
+    "subject": "{name}, {company} - I messaged you before about your loss...",
+    "body": "Hi {name},\n\nI sent you a message earlier about the loss {company} is facing.\n\nI personally (CEO of PARWA) messaged you because I thought you're the perfect match - your company's loss could be covered by us.\n\n[INSERT ENHANCED FEAR CONTENT HERE - specific problems you found]\n\n[INCLUDE SOURCE - e.g., \"I found your info from LinkedIn where you're hiring support roles...\"]\n\nWhatever you think - just reply me. Yes or no, doesn't matter.\n\n- [Your name], CEO",
+    "enhanced_fear": "[Your enhanced fear content - more specific, more personal]",
+    "description": "Follow-up email - sent manually after 36 hours no reply. Includes CEO personal touch and source reference."
+  },
+  
+  "_instructions": {
+    "placeholders": {
+      "{name}": "Auto-filled with lead's name",
+      "{company}": "Auto-filled with lead's company",
+      "{notes}": "Auto-filled with lead's notes"
+    },
+    "tips": [
+      "Keep subject lines under 50 characters",
+      "Use name + company + money loss in fear subject for 90% open rate",
+      "Follow-up subject: name + company first, then 'messaged before'",
+      "Include source (LinkedIn, job posts) in follow-up to avoid scam feel",
+      "CEO signature in follow-up builds trust"
+    ]
+  }
+}

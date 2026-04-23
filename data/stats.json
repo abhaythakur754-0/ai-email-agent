@@ -1,0 +1,20 @@
+{
+  "sent": 0,
+  "replies": 0,
+  "leads": 0,
+  "solutions_sent": 0,
+  "follow_ups_sent": 0,
+  "conversions": 0,
+  "last_check": null,
+  "started_at": "2024-01-01T00:00:00",
+  "_schema": {
+    "sent": "total fear emails sent",
+    "replies": "total replies received",
+    "leads": "total qualified leads",
+    "solutions_sent": "solution emails sent",
+    "follow_ups_sent": "follow-up emails sent",
+    "conversions": "leads who visited website",
+    "last_check": "ISO timestamp of last inbox check",
+    "started_at": "ISO timestamp when system started"
+  }
+}

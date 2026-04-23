@@ -1,0 +1,32 @@
+{
+  "leads": [
+    {
+      "id": "example-001",
+      "email": "john@example.com",
+      "name": "John Smith",
+      "company": "Example Corp",
+      "notes": "Found on LinkedIn. Hiring support roles. Uses Zendesk.",
+      "source": "LinkedIn",
+      "status": "queued",
+      "created_at": "2024-01-15T10:00:00",
+      "fear_sent_at": null,
+      "follow_up_sent": false,
+      "follow_up_count": 0,
+      "needs_follow_up": false
+    }
+  ],
+  "_schema": {
+    "id": "unique identifier",
+    "email": "email address",
+    "name": "contact name",
+    "company": "company name",
+    "notes": "additional notes about the prospect",
+    "source": "where you found them (LinkedIn, job post, etc.)",
+    "status": "queued | fear_sent | solution_sent | follow_up_sent | converted | not_interested | follow_up_skipped",
+    "created_at": "ISO timestamp when lead was added",
+    "fear_sent_at": "ISO timestamp when fear email was sent",
+    "follow_up_sent": "boolean - has follow-up been sent",
+    "follow_up_count": "number of follow-ups sent",
+    "needs_follow_up": "boolean - needs follow-up alert"
+  }
+}
