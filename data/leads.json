@@ -1,88 +1,145 @@
 {
-  "leads": [
+  "generated_at": "2026-04-24",
+  "sniper_leads": [
     {
-      "id": "lead-001",
-      "email": "aman.gupta@boat-lifestyle.com",
-      "name": "Aman Gupta",
-      "company": "boAt",
-      "notes": "Co-founder & CMO. boAt is India's #1 audio brand with $1.5B+ valuation. Estimated 500+ support tickets/day. Recently expanded to smartwatches. High volume of warranty claims and returns. Uses Freshdesk. Looking to scale support without hiring more agents.",
-      "source": "LinkedIn + Public info",
-      "status": "queued",
-      "created_at": "2026-04-24T10:00:00",
-      "fear_sent_at": null,
-      "follow_up_sent": false,
-      "follow_up_count": 0,
-      "needs_follow_up": false
-    },
-    {
-      "id": "lead-002",
-      "email": "varun.alagh@mamaearth.in",
-      "name": "Varun Alagh",
-      "company": "Mamaearth",
-      "notes": "Co-founder & CEO. Mamaearth is leading D2C beauty brand, $1.2B+ valuation. 400+ daily support tickets. Product ingredient questions, delivery issues, returns. Strong focus on customer trust. Listed on stock exchange - needs efficient support for investor relations too.",
-      "source": "LinkedIn + Public info",
-      "status": "queued",
-      "created_at": "2026-04-24T10:05:00",
-      "fear_sent_at": null,
-      "follow_up_sent": false,
-      "follow_up_count": 0,
-      "needs_follow_up": false
-    },
-    {
-      "id": "lead-003",
-      "email": "harshil.mathur@razorpay.com",
-      "name": "Harshil Mathur",
       "company": "Razorpay",
-      "notes": "Co-founder & CEO. Razorpay is India's leading payment gateway, $7.5B+ valuation. 8M+ merchants. Complex B2B support needs - payment failures, refunds, merchant onboarding. High-value customer support crucial for fintech trust. 24/7 support needed.",
-      "source": "LinkedIn + Public info",
-      "status": "queued",
-      "created_at": "2026-04-24T10:10:00",
-      "fear_sent_at": null,
-      "follow_up_sent": false,
-      "follow_up_count": 0,
-      "needs_follow_up": false
+      "website": "razorpay.com",
+      "industry": "Fintech/Payments",
+      "signal": "Hiring Customer Support",
+      "priority_score": 92,
+      "estimated_tickets": "500+",
+      "estimated_cost": "$25,000/mo",
+      "careers_url": "razorpay.com/jobs",
+      "status": "pending"
     },
     {
-      "id": "lead-004",
-      "email": "founders@zepto.com",
-      "name": "Aadit Palicha",
-      "company": "Zepto",
-      "notes": "Co-founder & CEO. Zepto is quick commerce unicorn, $5B+ valuation. 10-minute delivery model = high support volume. Missing items, delivery delays, refunds. 2000+ daily tickets. 24/7 operations. Rapid city expansion creating support chaos.",
-      "source": "LinkedIn + Public info",
-      "status": "queued",
-      "created_at": "2026-04-24T10:15:00",
-      "fear_sent_at": null,
-      "follow_up_sent": false,
-      "follow_up_count": 0,
-      "needs_follow_up": false
+      "company": "PhonePe",
+      "website": "phonepe.com",
+      "industry": "Fintech/Payments",
+      "signal": "Large support team, hiring",
+      "priority_score": 95,
+      "estimated_tickets": "1000+",
+      "estimated_cost": "$50,000/mo",
+      "careers_url": "phonepe.com/careers",
+      "status": "pending"
     },
     {
-      "id": "lead-005",
-      "email": "gaurav@urbancompany.com",
-      "name": "Abhiraj Singh Bhal",
-      "company": "Urban Company",
-      "notes": "Co-founder. Urban Company is home services unicorn. Service quality complaints, booking issues, partner coordination. 600+ daily tickets. Multi-city operations. Complex support needs - both customer and service partner support required.",
-      "source": "LinkedIn + Public info",
-      "status": "queued",
-      "created_at": "2026-04-24T10:20:00",
-      "fear_sent_at": null,
-      "follow_up_sent": false,
-      "follow_up_count": 0,
-      "needs_follow_up": false
+      "company": "Swiggy",
+      "website": "swiggy.com",
+      "industry": "Food Delivery/E-commerce",
+      "signal": "Hiring Customer Care",
+      "priority_score": 94,
+      "estimated_tickets": "2000+",
+      "estimated_cost": "$80,000/mo",
+      "careers_url": "careers.swiggy.com",
+      "status": "pending"
+    },
+    {
+      "company": "Zomato",
+      "website": "zomato.com",
+      "industry": "Food Delivery/E-commerce",
+      "signal": "Large support operations",
+      "priority_score": 93,
+      "estimated_tickets": "1500+",
+      "estimated_cost": "$60,000/mo",
+      "careers_url": "zomato.com/careers",
+      "status": "pending"
+    },
+    {
+      "company": "BYJU'S",
+      "website": "byjus.com",
+      "industry": "EdTech",
+      "signal": "Massive support team, hiring",
+      "priority_score": 90,
+      "estimated_tickets": "800+",
+      "estimated_cost": "$35,000/mo",
+      "careers_url": "byjus.com/careers-at-byjus",
+      "status": "pending"
+    },
+    {
+      "company": "Tata 1mg",
+      "website": "1mg.com",
+      "industry": "HealthTech/Pharmacy",
+      "signal": "4000+ employees, support needed",
+      "priority_score": 91,
+      "estimated_tickets": "600+",
+      "estimated_cost": "$28,000/mo",
+      "careers_url": "1mg.com/jobs",
+      "status": "pending"
+    },
+    {
+      "company": "Delhivery",
+      "website": "delhivery.com",
+      "industry": "Logistics/E-commerce",
+      "signal": "Hiring Customer Care Executive",
+      "priority_score": 87,
+      "estimated_tickets": "700+",
+      "estimated_cost": "$30,000/mo",
+      "careers_url": "delhivery.com/careers",
+      "status": "pending"
+    },
+    {
+      "company": "Lenskart",
+      "website": "lenskart.com",
+      "industry": "D2C/Eyewear",
+      "signal": "Customer service roles open",
+      "priority_score": 85,
+      "estimated_tickets": "400+",
+      "estimated_cost": "$18,000/mo",
+      "careers_url": "lenskart.com/wearehiring",
+      "status": "pending"
     }
   ],
-  "_schema": {
-    "id": "unique identifier",
-    "email": "email address",
-    "name": "contact name",
-    "company": "company name",
-    "notes": "detailed research notes for LLM personalization",
-    "source": "where you found them",
-    "status": "queued | fear_sent | solution_sent | follow_up_sent | converted | not_interested",
-    "created_at": "ISO timestamp",
-    "fear_sent_at": "when fear email was sent",
-    "follow_up_sent": "boolean",
-    "follow_up_count": "number",
-    "needs_follow_up": "boolean"
-  }
+  "shotgun_leads": [
+    {
+      "company": "Meesho",
+      "website": "meesho.com",
+      "industry": "E-commerce/Social",
+      "signal": "Large seller support needs",
+      "priority_score": 75,
+      "estimated_tickets": "500+",
+      "estimated_cost": "$22,000/mo",
+      "status": "pending"
+    },
+    {
+      "company": "Flipkart",
+      "website": "flipkart.com",
+      "industry": "E-commerce",
+      "signal": "Massive support operations",
+      "priority_score": 73,
+      "estimated_tickets": "2000+",
+      "estimated_cost": "$80,000/mo",
+      "status": "pending"
+    },
+    {
+      "company": "BrowserStack",
+      "website": "browserstack.com",
+      "industry": "SaaS/DevTools",
+      "signal": "Customer Success roles",
+      "priority_score": 72,
+      "estimated_tickets": "200+",
+      "estimated_cost": "$10,000/mo",
+      "status": "pending"
+    },
+    {
+      "company": "BigBasket",
+      "website": "bigbasket.com",
+      "industry": "E-commerce/Grocery",
+      "signal": "Customer service operations",
+      "priority_score": 71,
+      "estimated_tickets": "600+",
+      "estimated_cost": "$25,000/mo",
+      "status": "pending"
+    },
+    {
+      "company": "Udaan",
+      "website": "udaan.com",
+      "industry": "B2B/E-commerce",
+      "signal": "Growing support needs",
+      "priority_score": 67,
+      "estimated_tickets": "300+",
+      "estimated_cost": "$13,000/mo",
+      "status": "pending"
+    }
+  ]
 }
