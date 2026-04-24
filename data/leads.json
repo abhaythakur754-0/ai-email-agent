@@ -1,145 +1,38 @@
 {
   "generated_at": "2026-04-24",
+  "target_market": "FOREIGN (USA, UK, Europe, Australia, Canada)",
   "sniper_leads": [
-    {
-      "company": "Razorpay",
-      "website": "razorpay.com",
-      "industry": "Fintech/Payments",
-      "signal": "Hiring Customer Support",
-      "priority_score": 92,
-      "estimated_tickets": "500+",
-      "estimated_cost": "$25,000/mo",
-      "careers_url": "razorpay.com/jobs",
-      "status": "pending"
-    },
-    {
-      "company": "PhonePe",
-      "website": "phonepe.com",
-      "industry": "Fintech/Payments",
-      "signal": "Large support team, hiring",
-      "priority_score": 95,
-      "estimated_tickets": "1000+",
-      "estimated_cost": "$50,000/mo",
-      "careers_url": "phonepe.com/careers",
-      "status": "pending"
-    },
-    {
-      "company": "Swiggy",
-      "website": "swiggy.com",
-      "industry": "Food Delivery/E-commerce",
-      "signal": "Hiring Customer Care",
-      "priority_score": 94,
-      "estimated_tickets": "2000+",
-      "estimated_cost": "$80,000/mo",
-      "careers_url": "careers.swiggy.com",
-      "status": "pending"
-    },
-    {
-      "company": "Zomato",
-      "website": "zomato.com",
-      "industry": "Food Delivery/E-commerce",
-      "signal": "Large support operations",
-      "priority_score": 93,
-      "estimated_tickets": "1500+",
-      "estimated_cost": "$60,000/mo",
-      "careers_url": "zomato.com/careers",
-      "status": "pending"
-    },
-    {
-      "company": "BYJU'S",
-      "website": "byjus.com",
-      "industry": "EdTech",
-      "signal": "Massive support team, hiring",
-      "priority_score": 90,
-      "estimated_tickets": "800+",
-      "estimated_cost": "$35,000/mo",
-      "careers_url": "byjus.com/careers-at-byjus",
-      "status": "pending"
-    },
-    {
-      "company": "Tata 1mg",
-      "website": "1mg.com",
-      "industry": "HealthTech/Pharmacy",
-      "signal": "4000+ employees, support needed",
-      "priority_score": 91,
-      "estimated_tickets": "600+",
-      "estimated_cost": "$28,000/mo",
-      "careers_url": "1mg.com/jobs",
-      "status": "pending"
-    },
-    {
-      "company": "Delhivery",
-      "website": "delhivery.com",
-      "industry": "Logistics/E-commerce",
-      "signal": "Hiring Customer Care Executive",
-      "priority_score": 87,
-      "estimated_tickets": "700+",
-      "estimated_cost": "$30,000/mo",
-      "careers_url": "delhivery.com/careers",
-      "status": "pending"
-    },
-    {
-      "company": "Lenskart",
-      "website": "lenskart.com",
-      "industry": "D2C/Eyewear",
-      "signal": "Customer service roles open",
-      "priority_score": 85,
-      "estimated_tickets": "400+",
-      "estimated_cost": "$18,000/mo",
-      "careers_url": "lenskart.com/wearehiring",
-      "status": "pending"
-    }
+    {"company": "Stripe", "website": "stripe.com", "country": "USA", "industry": "Fintech/Payments", "priority_score": 96, "estimated_cost": "$200,000/mo", "careers_url": "stripe.com/jobs", "status": "pending"},
+    {"company": "Shopify", "website": "shopify.com", "country": "Canada", "industry": "E-commerce Platform", "priority_score": 95, "estimated_cost": "$400,000/mo", "careers_url": "shopify.com/careers", "status": "pending"},
+    {"company": "Spotify", "website": "spotify.com", "country": "Sweden", "industry": "Media/Streaming", "priority_score": 95, "estimated_cost": "$400,000/mo", "careers_url": "spotify.com/jobs", "status": "pending"},
+    {"company": "Canva", "website": "canva.com", "country": "Australia", "industry": "SaaS/Design", "priority_score": 94, "estimated_cost": "$120,000/mo", "careers_url": "canva.com/careers", "status": "pending"},
+    {"company": "Revolut", "website": "revolut.com", "country": "UK", "industry": "Fintech/Banking", "priority_score": 94, "estimated_cost": "$200,000/mo", "careers_url": "revolut.com/careers", "status": "pending"},
+    {"company": "Klarna", "website": "klarna.com", "country": "Sweden", "industry": "Fintech/BNPL", "priority_score": 93, "estimated_cost": "$300,000/mo", "careers_url": "klarna.com/careers", "status": "pending"},
+    {"company": "Wise", "website": "wise.com", "country": "UK", "industry": "Fintech/Payments", "priority_score": 92, "estimated_cost": "$120,000/mo", "careers_url": "wise.com/careers", "status": "pending"},
+    {"company": "Atlassian", "website": "atlassian.com", "country": "Australia", "industry": "SaaS/DevTools", "priority_score": 92, "estimated_cost": "$85,000/mo", "careers_url": "atlassian.com/careers", "status": "pending"},
+    {"company": "Figma", "website": "figma.com", "country": "USA", "industry": "SaaS/Design", "priority_score": 91, "estimated_cost": "$45,000/mo", "careers_url": "figma.com/careers", "status": "pending"},
+    {"company": "Monzo", "website": "monzo.com", "country": "UK", "industry": "Fintech/Banking", "priority_score": 90, "estimated_cost": "$85,000/mo", "careers_url": "monzo.com/careers", "status": "pending"},
+    {"company": "Notion", "website": "notion.com", "country": "USA", "industry": "SaaS/Productivity", "priority_score": 89, "estimated_cost": "$35,000/mo", "careers_url": "notion.com/careers", "status": "pending"},
+    {"company": "Airtable", "website": "airtable.com", "country": "USA", "industry": "SaaS/Database", "priority_score": 88, "estimated_cost": "$28,000/mo", "careers_url": "airtable.com/careers", "status": "pending"},
+    {"company": "Starling Bank", "website": "starlingbank.com", "country": "UK", "industry": "Fintech/Banking", "priority_score": 88, "estimated_cost": "$35,000/mo", "careers_url": "starlingbank.com/careers", "status": "pending"},
+    {"company": "Ramp", "website": "ramp.com", "country": "USA", "industry": "Fintech/Expense", "priority_score": 87, "estimated_cost": "$22,000/mo", "careers_url": "ramp.com/careers", "status": "pending"},
+    {"company": "SumUp", "website": "sumup.com", "country": "Germany", "industry": "Fintech/Payments", "priority_score": 86, "estimated_cost": "$30,000/mo", "careers_url": "sumup.com/careers", "status": "pending"},
+    {"company": "Wealthsimple", "website": "wealthsimple.com", "country": "Canada", "industry": "Fintech/Investing", "priority_score": 85, "estimated_cost": "$22,000/mo", "careers_url": "wealthsimple.com/careers", "status": "pending"},
+    {"company": "Vercel", "website": "vercel.com", "country": "USA", "industry": "DevTools/Platform", "priority_score": 85, "estimated_cost": "$18,000/mo", "careers_url": "vercel.com/careers", "status": "pending"},
+    {"company": "Afterpay", "website": "afterpay.com", "country": "Australia", "industry": "Fintech/BNPL", "priority_score": 88, "estimated_cost": "$60,000/mo", "careers_url": "afterpay.com/careers", "status": "pending"},
+    {"company": "Loom", "website": "loom.com", "country": "USA", "industry": "SaaS/Video", "priority_score": 84, "estimated_cost": "$15,000/mo", "careers_url": "loom.com/careers", "status": "pending"},
+    {"company": "Linear", "website": "linear.app", "country": "USA", "industry": "SaaS/Project Mgmt", "priority_score": 82, "estimated_cost": "$10,000/mo", "careers_url": "linear.app/careers", "status": "pending"}
   ],
   "shotgun_leads": [
-    {
-      "company": "Meesho",
-      "website": "meesho.com",
-      "industry": "E-commerce/Social",
-      "signal": "Large seller support needs",
-      "priority_score": 75,
-      "estimated_tickets": "500+",
-      "estimated_cost": "$22,000/mo",
-      "status": "pending"
-    },
-    {
-      "company": "Flipkart",
-      "website": "flipkart.com",
-      "industry": "E-commerce",
-      "signal": "Massive support operations",
-      "priority_score": 73,
-      "estimated_tickets": "2000+",
-      "estimated_cost": "$80,000/mo",
-      "status": "pending"
-    },
-    {
-      "company": "BrowserStack",
-      "website": "browserstack.com",
-      "industry": "SaaS/DevTools",
-      "signal": "Customer Success roles",
-      "priority_score": 72,
-      "estimated_tickets": "200+",
-      "estimated_cost": "$10,000/mo",
-      "status": "pending"
-    },
-    {
-      "company": "BigBasket",
-      "website": "bigbasket.com",
-      "industry": "E-commerce/Grocery",
-      "signal": "Customer service operations",
-      "priority_score": 71,
-      "estimated_tickets": "600+",
-      "estimated_cost": "$25,000/mo",
-      "status": "pending"
-    },
-    {
-      "company": "Udaan",
-      "website": "udaan.com",
-      "industry": "B2B/E-commerce",
-      "signal": "Growing support needs",
-      "priority_score": 67,
-      "estimated_tickets": "300+",
-      "estimated_cost": "$13,000/mo",
-      "status": "pending"
-    }
+    {"company": "Zapier", "website": "zapier.com", "country": "USA", "industry": "SaaS/Automation", "priority_score": 78, "estimated_cost": "$22,000/mo", "status": "pending"},
+    {"company": "Delivery Hero", "website": "deliveryhero.com", "country": "Germany", "industry": "Food Delivery", "priority_score": 82, "estimated_cost": "$60,000/mo", "status": "pending"},
+    {"company": "N26", "website": "n26.com", "country": "Germany", "industry": "Fintech/Banking", "priority_score": 80, "estimated_cost": "$35,000/mo", "status": "pending"},
+    {"company": "Webflow", "website": "webflow.com", "country": "USA", "industry": "SaaS/Web Design", "priority_score": 75, "estimated_cost": "$18,000/mo", "status": "pending"},
+    {"company": "ASOS", "website": "asos.com", "country": "UK", "industry": "E-commerce/Fashion", "priority_score": 76, "estimated_cost": "$85,000/mo", "status": "pending"},
+    {"company": "Farfetch", "website": "farfetch.com", "country": "UK", "industry": "E-commerce/Luxury", "priority_score": 74, "estimated_cost": "$26,000/mo", "status": "pending"},
+    {"company": "Envato", "website": "envato.com", "country": "Australia", "industry": "Marketplace/Digital", "priority_score": 73, "estimated_cost": "$18,000/mo", "status": "pending"},
+    {"company": "Calendly", "website": "calendly.com", "country": "USA", "industry": "SaaS/Scheduling", "priority_score": 72, "estimated_cost": "$14,000/mo", "status": "pending"},
+    {"company": "Zalando", "website": "zalando.com", "country": "Germany", "industry": "E-commerce/Fashion", "priority_score": 79, "estimated_cost": "$45,000/mo", "status": "pending"},
+    {"company": "Wattpad", "website": "wattpad.com", "country": "Canada", "industry": "Media/Platform", "priority_score": 80, "estimated_cost": "$18,000/mo", "status": "pending"}
   ]
 }
