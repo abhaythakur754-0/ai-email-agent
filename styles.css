@@ -38,7 +38,7 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 32px;
+    margin-bottom: 24px;
 }
 
 .header-left {
@@ -53,9 +53,9 @@ body {
 }
 
 .badge {
-    background: #D1FAE5;
-    color: #065F46;
-    font-size: 12px;
+    background: linear-gradient(135deg, #8B5CF6, #6366F1);
+    color: white;
+    font-size: 11px;
     font-weight: 600;
     padding: 4px 10px;
     border-radius: 20px;
@@ -64,6 +64,23 @@ body {
 .header-right {
     display: flex;
     gap: 12px;
+}
+
+/* Info Banner */
+.info-banner {
+    background: linear-gradient(135deg, #EEF2FF, #E0E7FF);
+    border: 1px solid #C7D2FE;
+    border-radius: 8px;
+    padding: 12px 16px;
+    margin-bottom: 24px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 14px;
+}
+
+.info-icon {
+    font-size: 20px;
 }
 
 /* Buttons */
@@ -131,7 +148,7 @@ body {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 16px;
-    margin-bottom: 32px;
+    margin-bottom: 24px;
 }
 
 .stat-card {
@@ -473,10 +490,114 @@ body {
     align-self: flex-start;
 }
 
+.message-note {
+    background: #FEF3C7;
+    align-self: center;
+    text-align: center;
+    max-width: 90%;
+}
+
 .message-time {
     font-size: 11px;
     color: var(--text-muted);
     margin-top: 4px;
+}
+
+.llm-badge {
+    display: inline-block;
+    background: linear-gradient(135deg, #8B5CF6, #6366F1);
+    color: white;
+    font-size: 9px;
+    padding: 2px 6px;
+    border-radius: 10px;
+    margin-left: 8px;
+    vertical-align: middle;
+}
+
+/* Info Box */
+.info-box {
+    background: #EEF2FF;
+    border: 1px solid #C7D2FE;
+    border-radius: 8px;
+    padding: 12px 16px;
+    margin-bottom: 20px;
+    font-size: 14px;
+}
+
+/* Upload Section */
+.upload-section {
+    margin-bottom: 24px;
+}
+
+.upload-section h4,
+.uploaded-files h4,
+.example-section h4 {
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 12px;
+}
+
+.file-upload-area {
+    border: 2px dashed var(--border);
+    border-radius: 12px;
+    padding: 40px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.file-upload-area:hover,
+.file-upload-area.highlight {
+    border-color: var(--primary);
+    background: #F0F7FF;
+}
+
+.upload-icon {
+    font-size: 48px;
+    margin-bottom: 12px;
+}
+
+.file-upload-area small {
+    display: block;
+    margin-top: 8px;
+    color: var(--text-muted);
+}
+
+/* Files List */
+.file-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px;
+    background: var(--bg);
+    border-radius: 8px;
+    margin-bottom: 8px;
+}
+
+.file-icon {
+    font-size: 24px;
+}
+
+.file-name {
+    flex: 1;
+    font-weight: 500;
+}
+
+.file-size {
+    color: var(--text-muted);
+    font-size: 12px;
+}
+
+/* Code Block */
+.code-block {
+    background: #1E293B;
+    color: #E2E8F0;
+    padding: 16px;
+    border-radius: 8px;
+    font-family: 'Monaco', 'Menlo', monospace;
+    font-size: 12px;
+    overflow-x: auto;
+    white-space: pre-wrap;
 }
 
 /* Responsive */

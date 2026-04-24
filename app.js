@@ -1,4 +1,5 @@
 // AI Email Agent Dashboard JavaScript
+// LLM-powered personalized emails - NO templates!
 
 // Configuration
 const CONFIG = {
@@ -10,12 +11,13 @@ const CONFIG = {
 // State
 let leads = [];
 let stats = {};
-let templates = {};
 let settings = {};
+let researchFiles = [];
 
 // Initialize
 document.addEventListener('DOMContentLoaded', () => {
     loadData();
+    setupDragDrop();
 });
 
 // Load data from JSON files (via raw.githubusercontent.com)
@@ -24,16 +26,14 @@ async function loadData() {
         const baseUrl = `https://raw.githubusercontent.com/${CONFIG.repo}/${CONFIG.branch}/${CONFIG.dataPath}`;
         
         // Load all data files in parallel
-        const [leadsRes, statsRes, templatesRes, settingsRes] = await Promise.all([
+        const [leadsRes, statsRes, settingsRes] = await Promise.all([
             fetch(`${baseUrl}/leads.json`),
             fetch(`${baseUrl}/stats.json`),
-            fetch(`${baseUrl}/templates.json`),
             fetch(`${baseUrl}/settings.json`)
         ]);
         
         const leadsData = await leadsRes.json();
         stats = await statsRes.json();
-        templates = await templatesRes.json();
         settings = await settingsRes.json();
         
         leads = leadsData.leads || [];
@@ -42,6 +42,7 @@ async function loadData() {
         updateStats();
         updateLeadsTable();
         checkFollowUpAlerts();
+        loadResearchFiles();
         
     } catch (error) {
         console.error('Error loading data:', error);
@@ -53,8 +54,8 @@ async function loadData() {
 function updateStats() {
     document.getElementById('stat-sent').textContent = stats.sent || 0;
     document.getElementById('stat-replies').textContent = stats.replies || 0;
-    document.getElementById('stat-leads').textContent = stats.leads || 0;
-    document.getElementById('stat-conversations').textContent = leads.length;
+    document.getElementById('stat-leads').textContent = leads.length;
+    document.getElementById('stat-research').textContent = researchFiles.length;
 }
 
 // Update leads table
@@ -109,6 +110,124 @@ function checkFollowUpAlerts() {
     `).join('');
 }
 
+// Load research files
+async function loadResearchFiles() {
+    try {
+        const baseUrl = `https://raw.githubusercontent.com/${CONFIG.repo}/${CONFIG.branch}/${CONFIG.dataPath}/research`;
+        
+        // Try to load a manifest file
+        const manifestRes = await fetch(`${baseUrl}/manifest.json`);
+        if (manifestRes.ok) {
+            const manifest = await manifestRes.json();
+            researchFiles = manifest.files || [];
+        } else {
+            researchFiles = [];
+        }
+        
+        updateStats();
+        updateFilesList();
+    } catch (error) {
+        console.log('No research files found');
+        researchFiles = [];
+        updateStats();
+    }
+}
+
+// Update files list in modal
+function updateFilesList() {
+    const filesList = document.getElementById('files-list');
+    
+    if (researchFiles.length === 0) {
+        filesList.innerHTML = '<p style="color: var(--text-sub);">No research files uploaded yet.</p>';
+        return;
+    }
+    
+    filesList.innerHTML = researchFiles.map(file => `
+        <div class="file-item">
+            <span class="file-icon">📄</span>
+            <span class="file-name">${escapeHtml(file.name)}</span>
+            <span class="file-size">${formatFileSize(file.size)}</span>
+            <button class="btn btn-small btn-secondary" onclick="deleteFile('${file.name}')">Delete</button>
+        </div>
+    `).join('');
+}
+
+// Setup drag and drop
+function setupDragDrop() {
+    const dropArea = document.getElementById('file-upload-area');
+    if (!dropArea) return;
+
+    ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+        dropArea.addEventListener(eventName, preventDefaults, false);
+    });
+
+    function preventDefaults(e) {
+        e.preventDefault();
+        e.stopPropagation();
+    }
+
+    ['dragenter', 'dragover'].forEach(eventName => {
+        dropArea.addEventListener(eventName, () => {
+            dropArea.classList.add('highlight');
+        }, false);
+    });
+
+    ['dragleave', 'drop'].forEach(eventName => {
+        dropArea.addEventListener(eventName, () => {
+            dropArea.classList.remove('highlight');
+        }, false);
+    });
+
+    dropArea.addEventListener('drop', handleDrop, false);
+}
+
+function handleDrop(e) {
+    const dt = e.dataTransfer;
+    const files = dt.files;
+    handleFiles(files);
+}
+
+function handleFileUpload(event) {
+    const files = event.target.files;
+    handleFiles(files);
+}
+
+function handleFiles(files) {
+    if (files.length === 0) return;
+    
+    const file = files[0]; // Only handle first file
+    
+    if (file.size > 1024 * 1024) { // 1MB limit
+        showNotification('File too large. Maximum size is 1MB.', 'error');
+        return;
+    }
+    
+    const reader = new FileReader();
+    reader.onload = (e) => {
+        uploadResearchFile(file.name, e.target.result);
+    };
+    reader.readAsText(file);
+}
+
+async function uploadResearchFile(filename, content) {
+    // In a real implementation, this would use GitHub API to save the file
+    // For now, we'll show a message explaining how to do it manually
+    
+    showNotification(`
+To upload "${filename}":
+
+1. Go to your GitHub repo
+2. Navigate to data/research/
+3. Create the file and paste your content
+
+Or use the GitHub CLI:
+gh api repos/abhaythakur754-0/ai-email-agent/contents/data/research/${filename} \\
+  -X PUT \\
+  -f message="Add research file: ${filename}" \\
+  -f content="$(echo '${btoa(content)}' | base64 -d | base64 -w0)"
+    `, 'info');
+}
+
 // Modal functions
 function showModal(modalId) {
     document.getElementById(modalId).classList.add('active');
@@ -125,12 +244,6 @@ function showAddProspect() {
 
 function showSettings() {
     // Load current settings into form
-    document.getElementById('fear-subject').value = templates.fear_email?.subject || '';
-    document.getElementById('fear-body').value = templates.fear_email?.body || '';
-    document.getElementById('solution-subject').value = templates.solution_email?.subject || '';
-    document.getElementById('solution-body').value = templates.solution_email?.body || '';
-    document.getElementById('followup-subject').value = templates.follow_up_email?.subject || '';
-    document.getElementById('followup-body').value = templates.follow_up_email?.body || '';
     document.getElementById('product-info').value = settings.product_info || '';
     document.getElementById('website-url').value = settings.website_url || '';
     document.getElementById('calculator-url').value = settings.calculator_url || '';
@@ -139,6 +252,11 @@ function showSettings() {
     document.getElementById('duplicate-protection').checked = settings.enable_duplicate_protection !== false;
     
     showModal('settings-modal');
+}
+
+function showResearch() {
+    updateFilesList();
+    showModal('research-modal');
 }
 
 function showTab(tabName) {
@@ -163,7 +281,7 @@ async function addProspect() {
         company: formData.get('company'),
         notes: formData.get('notes'),
         source: formData.get('source') || 'Manual',
-        status: formData.get('send_immediately') ? 'queued' : 'queued',
+        status: 'queued',
         created_at: new Date().toISOString(),
         fear_sent_at: null,
         follow_up_sent: false,
@@ -191,8 +309,9 @@ async function addProspect() {
     
     // Update UI
     updateLeadsTable();
+    updateStats();
     closeModal('add-prospect-modal');
-    showNotification('Prospect added successfully!', 'success');
+    showNotification('Prospect added! LLM will generate a personalized email.', 'success');
 }
 
 // Send follow-up
@@ -200,26 +319,22 @@ async function sendFollowUp(leadId) {
     const lead = leads.find(l => l.id === leadId);
     if (!lead) return;
     
-    // Check if already sent
     if (lead.follow_up_sent) {
         showNotification('Follow-up already sent to this lead', 'error');
         return;
     }
     
-    // Update lead
     lead.follow_up_sent = true;
     lead.follow_up_sent_at = new Date().toISOString();
     lead.follow_up_count = (lead.follow_up_count || 0) + 1;
     lead.needs_follow_up = false;
     lead.status = 'follow_up_sent';
     
-    // Save to GitHub
     await saveLeadsToGitHub();
     
-    // Update UI
     updateLeadsTable();
     checkFollowUpAlerts();
-    showNotification(`Follow-up sent to ${lead.name}!`, 'success');
+    showNotification(`Follow-up will be generated by LLM for ${lead.name}!`, 'success');
 }
 
 // Skip follow-up
@@ -246,7 +361,6 @@ async function viewConversation(leadId) {
     
     document.getElementById('conversation-title').textContent = `${lead.name} - ${lead.company}`;
     
-    // Load conversation from GitHub
     try {
         const baseUrl = `https://raw.githubusercontent.com/${CONFIG.repo}/${CONFIG.branch}/${CONFIG.dataPath}`;
         const res = await fetch(`${baseUrl}/conversations.json`);
@@ -257,9 +371,10 @@ async function viewConversation(leadId) {
         if (conversation && conversation.messages) {
             const thread = document.getElementById('conversation-thread');
             thread.innerHTML = conversation.messages.map(msg => {
+                const isLLMGenerated = msg.generated_by_llm ? '<span class="llm-badge">LLM Generated</span>' : '';
                 if (msg.direction === 'sent') {
                     return `<div class="message message-sent">
-                        <div>${escapeHtml(msg.body)}</div>
+                        <div>${escapeHtml(msg.body)}${isLLMGenerated}</div>
                         <div class="message-time">${formatDate(msg.date)} - ${msg.type || 'sent'}</div>
                     </div>`;
                 } else if (msg.direction === 'received') {
@@ -268,14 +383,14 @@ async function viewConversation(leadId) {
                         <div class="message-time">${formatDate(msg.date)}</div>
                     </div>`;
                 } else {
-                    return `<div class="message" style="background: #FEF3C7; align-self: center; text-align: center;">
+                    return `<div class="message message-note">
                         <div><em>${escapeHtml(msg.note || msg.body)}</em></div>
                         <div class="message-time">${formatDate(msg.date)}</div>
                     </div>`;
                 }
             }).join('');
         } else {
-            document.getElementById('conversation-thread').innerHTML = '<p style="text-align: center; color: var(--text-sub);">No conversation yet.</p>';
+            document.getElementById('conversation-thread').innerHTML = '<p style="text-align: center; color: var(--text-sub);">No conversation yet. Email will be generated by LLM when sent.</p>';
         }
     } catch (error) {
         document.getElementById('conversation-thread').innerHTML = '<p style="text-align: center; color: var(--text-sub);">Could not load conversation.</p>';
@@ -286,21 +401,6 @@ async function viewConversation(leadId) {
 
 // Save settings
 async function saveSettings() {
-    // Update templates
-    templates.fear_email = {
-        subject: document.getElementById('fear-subject').value,
-        body: document.getElementById('fear-body').value
-    };
-    templates.solution_email = {
-        subject: document.getElementById('solution-subject').value,
-        body: document.getElementById('solution-body').value
-    };
-    templates.follow_up_email = {
-        subject: document.getElementById('followup-subject').value,
-        body: document.getElementById('followup-body').value
-    };
-    
-    // Update settings
     settings.product_info = document.getElementById('product-info').value;
     settings.website_url = document.getElementById('website-url').value;
     settings.calculator_url = document.getElementById('calculator-url').value;
@@ -308,14 +408,10 @@ async function saveSettings() {
     settings.max_follow_ups = parseInt(document.getElementById('max-followups').value);
     settings.enable_duplicate_protection = document.getElementById('duplicate-protection').checked;
     
-    // Save to GitHub
-    await Promise.all([
-        saveToGitHub('templates.json', templates),
-        saveToGitHub('settings.json', settings)
-    ]);
+    await saveToGitHub('settings.json', settings);
     
     closeModal('settings-modal');
-    showNotification('Settings saved!', 'success');
+    showNotification('Settings saved! LLM will use this info for emails.', 'success');
 }
 
 // Save leads to GitHub
@@ -325,15 +421,8 @@ async function saveLeadsToGitHub() {
 
 // Generic save to GitHub function
 async function saveToGitHub(filename, data) {
-    // Note: This requires GitHub API authentication
-    // In production, you'd use a GitHub App or OAuth
-    // For now, this is a placeholder that would need proper auth
-    
     console.log(`Would save ${filename}:`, data);
-    
-    // The actual implementation would use:
-    // PUT /repos/{owner}/{repo}/contents/{path}
-    // with proper authentication
+    // Note: In production, this would use GitHub API with authentication
 }
 
 // Helper functions
@@ -366,6 +455,12 @@ function formatDate(dateStr) {
     }
 }
 
+function formatFileSize(bytes) {
+    if (bytes < 1024) return bytes + ' B';
+    if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(1) + ' KB';
+    return (bytes / (1024 * 1024)).toFixed(1) + ' MB';
+}
+
 function formatStatus(status) {
     const statusMap = {
         'queued': 'Queued',
@@ -382,11 +477,13 @@ function formatStatus(status) {
 }
 
 function showNotification(message, type = 'info') {
-    // Simple notification - you could make this fancier
     alert(message);
 }
 
 function showAllLeads() {
-    // Would navigate to a full leads page
     showNotification('Full leads view coming soon!', 'info');
+}
+
+function deleteFile(filename) {
+    showNotification(`To delete "${filename}", go to GitHub and delete the file from data/research/`, 'info');
 }

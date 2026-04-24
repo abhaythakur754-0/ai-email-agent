@@ -1,6 +1,8 @@
 /**
  * Main Orchestrator Module (Node.js)
  * Coordinates email handling, AI processing, and data management.
+ * 
+ * KEY CHANGE: Uses LLM to generate PERSONALIZED emails, NOT templates!
  */
 
 const fs = require('fs');
@@ -18,12 +20,19 @@ class EmailAgent {
         this.leadsFile = path.join(this.dataDir, 'leads.json');
         this.emailsFile = path.join(this.dataDir, 'emails.json');
         this.conversationsFile = path.join(this.dataDir, 'conversations.json');
-        this.templatesFile = path.join(this.dataDir, 'templates.json');
         this.statsFile = path.join(this.dataDir, 'stats.json');
         this.settingsFile = path.join(this.dataDir, 'settings.json');
+        
+        // Research directory for uploaded files
+        this.researchDir = path.join(this.dataDir, 'research');
     }
 
     async init() {
+        // Ensure research directory exists
+        if (!fs.existsSync(this.researchDir)) {
+            fs.mkdirSync(this.researchDir, { recursive: true });
+        }
+        
         this.aiEngine = await new AIEngine().init();
         return this;
     }
@@ -35,11 +44,10 @@ class EmailAgent {
         const leads = this._loadJSON(this.leadsFile);
         const emails = this._loadJSON(this.emailsFile);
         const conversations = this._loadJSON(this.conversationsFile);
-        const templates = this._loadJSON(this.templatesFile);
         const stats = this._loadJSON(this.statsFile);
 
-        // Step 1: Send queued Fear emails
-        await this._sendQueuedEmails(leads, emails, templates, stats);
+        // Step 1: Send queued Fear emails (PERSONALIZED by LLM!)
+        await this._sendQueuedEmails(leads, emails, conversations, stats);
 
         // Step 2: Check for new replies
         const lastCheck = this._getLastCheckTime(stats);
@@ -47,7 +55,7 @@ class EmailAgent {
 
         // Step 3: Process each new reply
         for (const newEmail of newEmails) {
-            await this._processReply(newEmail, leads, emails, conversations, templates, stats);
+            await this._processReply(newEmail, leads, emails, conversations, stats);
         }
 
         // Step 4: Check for follow-up alerts (36 hours)
@@ -67,7 +75,66 @@ class EmailAgent {
         console.log(`  - Total leads: ${leads.leads?.length || 0}`);
     }
 
-    async _processReply(newEmail, leads, emails, conversations, templates, stats) {
+    /**
+     * Send Fear emails to queued leads
+     * Each email is PERSONALIZED by LLM - no templates!
+     */
+    async _sendQueuedEmails(leads, emails, conversations, stats) {
+        for (const lead of leads.leads || []) {
+            if (lead.status === 'queued') {
+                console.log(`  Generating personalized Fear email for ${lead.name} (${lead.company})...`);
+
+                // Use LLM to generate unique email for THIS lead
+                const emailContent = await this.aiEngine.generateFearEmail(lead);
+
+                console.log(`    Subject: ${emailContent.subject}`);
+                console.log(`    Preview: ${emailContent.body.substring(0, 100)}...`);
+
+                // Send the email
+                const { success, messageId } = await this.emailHandler.sendEmail(
+                    lead.email,
+                    emailContent.subject,
+                    emailContent.body
+                );
+
+                if (success) {
+                    emails.emails = emails.emails || [];
+                    emails.emails.push({
+                        lead_id: lead.id,
+                        to: lead.email,
+                        subject: emailContent.subject,
+                        body: emailContent.body,
+                        type: 'fear',
+                        sent_at: new Date().toISOString(),
+                        message_id: messageId,
+                        generated_by_llm: true // Mark as LLM-generated
+                    });
+
+                    // Update lead status
+                    lead.status = 'fear_sent';
+                    lead.fear_sent_at = new Date().toISOString();
+                    
+                    // Initialize conversation
+                    const conversation = this._getConversation(conversations, lead.id);
+                    conversation.messages.push({
+                        direction: 'sent',
+                        to: lead.email,
+                        subject: emailContent.subject,
+                        body: emailContent.body,
+                        type: 'fear',
+                        date: new Date().toISOString()
+                    });
+
+                    stats.sent = (stats.sent || 0) + 1;
+                    console.log(`    ✓ Sent to ${lead.email}`);
+                } else {
+                    console.log(`    ✗ Failed to send to ${lead.email}`);
+                }
+            }
+        }
+    }
+
+    async _processReply(newEmail, leads, emails, conversations, stats) {
         const fromEmail = newEmail.from_email;
 
         // Find matching lead
@@ -112,86 +179,75 @@ class EmailAgent {
 
         // Determine action based on sentiment
         if (analysis.sentiment === 'positive') {
-            await this._handlePositiveReply(lead, analysis, templates, emails, conversation, stats);
+            await this._handlePositiveReply(lead, analysis, emails, conversation, stats, newEmail.body);
         } else if (analysis.sentiment === 'skeptical') {
-            await this._handleSkepticalReply(lead, analysis, templates, emails, conversation);
+            await this._handleSkepticalReply(lead, analysis, emails, conversation, newEmail.body);
         } else if (analysis.sentiment === 'negative') {
             this._handleNegativeReply(lead, analysis, conversation);
         } else {
-            await this._handleNeutralReply(lead, analysis, templates, emails, conversation);
+            await this._handleNeutralReply(lead, analysis, emails, conversation, newEmail.body);
         }
 
         // Update stats
         stats.replies = (stats.replies || 0) + 1;
     }
 
-    async _handlePositiveReply(lead, analysis, templates, emails, conversation, stats) {
-        console.log(`    → Sending Solution email to ${lead.name}`);
+    async _handlePositiveReply(lead, analysis, emails, conversation, stats, replyContent) {
+        console.log(`    → Generating personalized Solution email for ${lead.name}`);
 
-        const solutionTemplate = templates.solution_email || {};
-
-        // Use AI to personalize
-        const response = await this.aiEngine.generateResponse(
-            analysis,
+        // Use LLM to generate personalized solution email
+        const emailContent = await this.aiEngine.generateSolutionEmail(
             lead,
-            conversation.messages,
-            'solution'
+            replyContent,
+            conversation.messages
         );
 
-        // Send email
-        const subject = `Re: ${solutionTemplate.subject || 'Your inquiry'}`;
         const { success, messageId } = await this.emailHandler.sendEmail(
             lead.email,
-            subject,
-            response
+            emailContent.subject,
+            emailContent.body
         );
 
         if (success) {
-            // Record sent email
             emails.emails = emails.emails || [];
             emails.emails.push({
                 lead_id: lead.id,
                 to: lead.email,
-                subject: subject,
-                body: response,
+                subject: emailContent.subject,
+                body: emailContent.body,
                 type: 'solution',
                 sent_at: new Date().toISOString(),
-                message_id: messageId
+                message_id: messageId,
+                generated_by_llm: true
             });
 
-            // Update conversation
             conversation.messages.push({
                 direction: 'sent',
                 to: lead.email,
-                body: response,
+                body: emailContent.body,
                 type: 'solution',
                 date: new Date().toISOString()
             });
 
-            // Update lead status
             lead.status = 'solution_sent';
             lead.solution_sent_at = new Date().toISOString();
-
-            // Update stats
             stats.solutions_sent = (stats.solutions_sent || 0) + 1;
         }
     }
 
-    async _handleSkepticalReply(lead, analysis, templates, emails, conversation) {
-        console.log(`    → Building trust with ${lead.name}`);
+    async _handleSkepticalReply(lead, analysis, emails, conversation, replyContent) {
+        console.log(`    → Generating trust-building response for ${lead.name}`);
 
-        const response = await this.aiEngine.generateResponse(
-            analysis,
+        const emailContent = await this.aiEngine.generateTrustResponse(
             lead,
-            conversation.messages,
-            'trust'
+            replyContent,
+            conversation.messages
         );
 
-        const subject = "Re: Your questions";
         const { success, messageId } = await this.emailHandler.sendEmail(
             lead.email,
-            subject,
-            response
+            emailContent.subject,
+            emailContent.body
         );
 
         if (success) {
@@ -199,17 +255,18 @@ class EmailAgent {
             emails.emails.push({
                 lead_id: lead.id,
                 to: lead.email,
-                subject: subject,
-                body: response,
+                subject: emailContent.subject,
+                body: emailContent.body,
                 type: 'trust',
                 sent_at: new Date().toISOString(),
-                message_id: messageId
+                message_id: messageId,
+                generated_by_llm: true
             });
 
             conversation.messages.push({
                 direction: 'sent',
                 to: lead.email,
-                body: response,
+                body: emailContent.body,
                 type: 'trust',
                 date: new Date().toISOString()
             });
@@ -229,21 +286,19 @@ class EmailAgent {
         });
     }
 
-    async _handleNeutralReply(lead, analysis, templates, emails, conversation) {
-        console.log(`    → Answering questions from ${lead.name}`);
+    async _handleNeutralReply(lead, analysis, emails, conversation, replyContent) {
+        console.log(`    → Generating answer for ${lead.name}`);
 
-        const response = await this.aiEngine.generateResponse(
-            analysis,
+        const emailContent = await this.aiEngine.generateSolutionEmail(
             lead,
-            conversation.messages,
-            'answer'
+            replyContent,
+            conversation.messages
         );
 
-        const subject = "Re: Your question";
         const { success, messageId } = await this.emailHandler.sendEmail(
             lead.email,
-            subject,
-            response
+            'Re: Your question',
+            emailContent.body
         );
 
         if (success) {
@@ -251,62 +306,23 @@ class EmailAgent {
             emails.emails.push({
                 lead_id: lead.id,
                 to: lead.email,
-                subject: subject,
-                body: response,
+                subject: 'Re: Your question',
+                body: emailContent.body,
                 type: 'answer',
                 sent_at: new Date().toISOString(),
-                message_id: messageId
+                message_id: messageId,
+                generated_by_llm: true
             });
 
             conversation.messages.push({
                 direction: 'sent',
                 to: lead.email,
-                body: response,
+                body: emailContent.body,
                 type: 'answer',
                 date: new Date().toISOString()
             });
 
             lead.status = 'in_conversation';
-        }
-    }
-
-    async _sendQueuedEmails(leads, emails, templates, stats) {
-        for (const lead of leads.leads || []) {
-            if (lead.status === 'queued') {
-                console.log(`  Sending Fear email to ${lead.name} (${lead.company})`);
-
-                const fearTemplate = templates.fear_email || {};
-                const subject = (fearTemplate.subject || '')
-                    .replace('{name}', lead.name)
-                    .replace('{company}', lead.company);
-                const body = (fearTemplate.body || '')
-                    .replace('{name}', lead.name)
-                    .replace('{company}', lead.company)
-                    .replace('{notes}', lead.notes || '');
-
-                const { success, messageId } = await this.emailHandler.sendEmail(
-                    lead.email,
-                    subject,
-                    body
-                );
-
-                if (success) {
-                    emails.emails = emails.emails || [];
-                    emails.emails.push({
-                        lead_id: lead.id,
-                        to: lead.email,
-                        subject: subject,
-                        body: body,
-                        type: 'fear',
-                        sent_at: new Date().toISOString(),
-                        message_id: messageId
-                    });
-
-                    lead.status = 'fear_sent';
-                    lead.fear_sent_at = new Date().toISOString();
-                    stats.sent = (stats.sent || 0) + 1;
-                }
-            }
         }
     }
 
@@ -364,7 +380,6 @@ class EmailAgent {
                 return new Date(stats.last_check);
             } catch {}
         }
-        // Default: 1 hour ago
         const oneHourAgo = new Date();
         oneHourAgo.setHours(oneHourAgo.getHours() - 1);
         return oneHourAgo;
