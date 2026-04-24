@@ -5,12 +5,14 @@
   "main": "src/main.js",
   "scripts": {
     "start": "node src/main.js",
-    "test": "node src/main.js"
+    "test": "node src/main.js",
+    "test-email": "node test-email.js"
   },
   "dependencies": {
     "nodemailer": "^6.9.8",
     "imapflow": "^1.0.162",
     "mailparser": "^3.6.6",
+    "dotenv": "^16.3.1",
     "z-ai-web-dev-sdk": "latest"
   },
   "engines": {
