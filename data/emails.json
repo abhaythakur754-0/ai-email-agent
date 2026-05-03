@@ -1,12 +1,85 @@
 {
-  "emails": [],
+  "emails": [
+    {
+      "lead_id": "sniper-0",
+      "to": "contact@stripe.com",
+      "subject": "Stripe — Are you prepared for a $2.4M annual support drain?",
+      "body": "Hi there,\n\nI've been looking into Stripe's support operations and noticed something that might be costing you significantly.\n\nCompanies processing at your scale typically handle 5000+ support tickets daily. With average resolution times of 11 minutes and agent costs at $45K/year, that's a $2.4M annual drain just on support staff.\n\nThe real cost isn't just salaries — it's the customers who leave because they couldn't get help fast enough.\n\nAre you available for a 10-minute call this week?\n\nBest,\nCEO, PARWA",
+      "type": "fear",
+      "sent_at": "2026-04-28T10:30:00Z",
+      "replied": false
+    },
+    {
+      "lead_id": "sniper-1",
+      "to": "contact@shopify.com",
+      "subject": "Shopify — Are you prepared for support ticket overflow?",
+      "body": "Hi there,\n\nShopify powers millions of merchants, and each one needs support. At your scale, even a 1% issue rate means thousands of daily tickets.\n\nThe merchants who can't get help? They churn. And churn at your scale means hundreds of millions in lost revenue.\n\nI'd love to share what I found. Can we do a quick call Tuesday?\n\nBest,\nCEO, PARWA",
+      "type": "fear",
+      "sent_at": "2026-04-26T14:00:00Z",
+      "replied": true
+    },
+    {
+      "lead_id": "sniper-1",
+      "to": "contact@shopify.com",
+      "subject": "Shopify + PARWA: The solution to support ticket overflow",
+      "body": "Hey there,\n\nGreat to hear back!\n\nHere's how PARWA solves the support overflow problem:\n\n- Handles 60-90% of your tickets automatically — no human needed\n- Learns your specific merchant issues in weeks 1-6\n- Integrates with Zendesk, Intercom, and your existing tools\n- Reduces average response time from 4 hours to under 2 minutes\n\nAt your scale, that's potentially $400K/month in savings while improving merchant satisfaction.\n\nYou can see exactly how much you'd save here: https://parwa.ai/calculator\n\nWant me to walk you through it? I can do a 15-min demo this Thursday.\n\nBest,\nCEO, PARWA",
+      "type": "solution",
+      "sent_at": "2026-04-27T09:15:00Z",
+      "replied": false
+    },
+    {
+      "lead_id": "sniper-4",
+      "to": "contact@revolut.com",
+      "subject": "Revolut — Are you prepared for compliance support nightmares?",
+      "body": "Hi there,\n\nI've been researching Revolut's rapid expansion and noticed a growing risk in your support operations.\n\nAs you scale across 35+ countries, each with different financial regulations, your support team faces increasingly complex queries. A single compliance mishandling can cost millions in fines.\n\nThe question isn't if your support team will be overwhelmed — it's when.\n\nCan we discuss this over a brief call?\n\nBest,\nCEO, PARWA",
+      "type": "fear",
+      "sent_at": "2026-04-29T11:00:00Z",
+      "replied": true
+    },
+    {
+      "lead_id": "sniper-4",
+      "to": "contact@revolut.com",
+      "subject": "Revolut + PARWA: The solution to compliance support challenges",
+      "body": "Hey there,\n\nThanks for your interest!\n\nPARWA can handle the complexity of multi-regulation support:\n\n- Automatically categorizes and routes compliance-related queries\n- Trained on financial regulations across 35+ jurisdictions\n- Escalates only the 10-15% that truly need human review\n- Reduces compliance response time from 48 hours to under 30 minutes\n\nAt $200K/month in estimated support costs, that's a massive saving while reducing regulatory risk.\n\nWant to see it in action? I can set up a demo call this week.\n\nBest,\nCEO, PARWA",
+      "type": "solution",
+      "sent_at": "2026-04-30T10:00:00Z",
+      "replied": true
+    },
+    {
+      "lead_id": "sniper-4",
+      "from": "vp-ops@revolut.com",
+      "subject": "Re: Revolut + PARWA: The solution to compliance support challenges",
+      "body": "This looks interesting. We've been evaluating AI support solutions. A few questions:\n\n1. How does PARWA handle GDPR-sensitive data?\n2. What's the onboarding timeline for a company our size?\n3. Can you share any case studies from fintech?\n\nLet's schedule a call next week.",
+      "type": "received",
+      "date": "2026-05-01T14:30:00Z",
+      "replied": false
+    },
+    {
+      "lead_id": "sniper-4",
+      "to": "contact@revolut.com",
+      "subject": "Revolut — Quick question about your support workflow",
+      "body": "Hey there,\n\nGreat questions! Let me address them quickly:\n\n1. GDPR: PARWA is fully GDPR-compliant. We process data within EU servers, support data deletion requests, and never train on client data. We have SOC 2 Type II certification as well.\n\n2. Onboarding: For a company your size, we typically start with a 2-week pilot covering one region, then expand. Full deployment across 35 countries takes 6-8 weeks.\n\n3. Case studies: We recently helped a top-5 European neobank reduce compliance support tickets by 73%. Happy to share details on the call.\n\nHow does Tuesday at 2 PM GMT work for you?\n\nBest,\nCEO, PARWA",
+      "type": "probe",
+      "sent_at": "2026-05-02T09:00:00Z",
+      "replied": false
+    },
+    {
+      "lead_id": "sniper-7",
+      "to": "contact@atlassian.com",
+      "subject": "Atlassian — Are you prepared for developer support burnout?",
+      "body": "Hi there,\n\nAtlassian's developer tools power millions of teams, but who supports the supporters?\n\nDeveloper support teams at your scale face 3000+ tickets daily. The complexity of Jira, Confluence, and Bitbucket integrations means each ticket takes 3x longer than average. Your best agents are burning out.\n\nThe cost of replacing a single senior support engineer? $65K including recruitment and training.\n\nI'd like to share some data that might help. Free for a 10-min chat this week?\n\nBest,\nCEO, PARWA",
+      "type": "fear",
+      "sent_at": "2026-04-25T08:30:00Z",
+      "replied": false
+    }
+  ],
   "_schema": {
     "lead_id": "reference to lead",
     "to": "recipient email",
     "from": "sender email (for received)",
     "subject": "email subject",
     "body": "email body",
-    "type": "fear | solution | follow_up | trust | answer | received",
+    "type": "fear | solution | probe | follow_up | trust | answer | received",
     "sent_at": "ISO timestamp when sent",
     "date": "ISO timestamp (for received emails)",
     "message_id": "email message ID for threading",
